@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\Auth\LoginController;
 
