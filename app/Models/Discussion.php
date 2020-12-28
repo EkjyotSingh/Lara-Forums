@@ -15,7 +15,7 @@ class Discussion extends Model
 {
     use HasFactory;
 
-    protected $fillable=['title','content','user_id','channel_id'];
+    protected $fillable=['title','content','user_id','channel_id','slug'];
 
     public function user(){
         return $this->belongsTo(User::class);
