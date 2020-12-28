@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reply;
 use App\Models\Discussion;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -27,6 +28,7 @@ class DiscussionController extends Controller
             'content'=>$request->content,
             'user_id'=>Auth::id(),
             'channel_id'=>$request->channel,
+            'slug'=>Str::slug($request->title)
         ]);
 
         Session::flash('success','Discussion created successfully');
