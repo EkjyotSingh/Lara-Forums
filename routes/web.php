@@ -17,13 +17,9 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/forum', [App\Http\Controllers\ForumController::class, 'index'])->name('forum');
+Route::get('/', [App\Http\Controllers\ForumController::class, 'index'])->name('forum');
 
 Route::middleware(['auth'])->group(function(){
 Route::get('/discussion/create', [App\Http\Controllers\DiscussionController::class, 'create'])->name('discussion.create');

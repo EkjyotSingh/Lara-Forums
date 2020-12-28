@@ -25,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //View::share('channels',Channel::with('discussions')->get());
+        View::share('channels',Channel::with('discussions')->get());
     }
 }
