@@ -17,6 +17,7 @@
 }
 .like_font_size{
     font-size:.7rem;
+    margin-top:4px;
 }
 .green{
     background:rgba(147, 241, 147, 0.589);
@@ -53,43 +54,90 @@
 .muted-size{
     font-size:.7rem;
 }
-.sidebar{
-   height:calc(100% - 79px);
+.sidebar{ 
+    padding:0 20px;
+    position:fixed;
+    top:56px;
+    left:0px;
+   height:calc(100% - 55px);
    overflow-y:auto;
    z-index:1000;
+}
+
+.sidebar::-webkit-scrollbar{
+    display:none;
 }
 .icon-github{
     fill:rgba(36, 34, 34, 0.829);
     height:2rem;
     width:2rem;
 }
+.hamberger{
+    cursor:pointer;
+}
+.icon-menu{
+    fill:#343a40;
+    height:1.6rem;
+    width:1.6rem;
+}
+.icon-cross-sidebar{
+    fill:#343a40;
+    height:1.2rem;
+    width:1.2rem;
+}
+.sidebar-small{
+    transform:translateX(110%);
+    position:absolute;
+    top:51px;
+    right:0;
+    height:calc(100vh - 59px);
+    width:50%;
+    background:white;
+    z-index:1000000;
+    transition:all .4s ease-in-out;
+}
+.main_container{
+    flex-grow:1;
+    min-height:calc(100vh - 209px);
+}
+.line_1{
+    line-height:1 !important;
+    padding:17px 10px;
+}
+
+trix-toolbar [data-trix-button-group="file-tools"] {
+    display: none;
+  }
 
 @media  only screen and (max-width: 340px) {
     .button-size{
         font-size:.7rem !important;
-        /*padding:.2rem 0rem .2rem 0rem;*/
     }
 }
-@media (max-width: 768px) {
-    .sidebar{
-        position:static !important;
-        height:100%;
-        overflow-y:none;
-        z-index:1000;
+@media  only screen and (max-width: 450px) {
+    .sidebar-small{
+        width:70% !important;
     }
 }
+@media (max-width: 401px) {
+   .notification{
+       right:0;
+   }
+}
+/*@media (max-width: 768px) {
+    
+}*/
 @media (min-width: 768px) {
-    .sidebar{
-        width:calc(240px - 30px);
+    .sidebar,.sidebar_cont,.footer_side{
+        width:calc(319.98px - 30px);
+    }
+    .sidebar_cont,.footer_side{
+       min-width:calc(319.98px - 30px);
     }
 }
 @media (min-width: 992px) {
-    .sidebar{
-        width:calc(319.98px - 30px);
-    }
+   
 }
 @media (min-width: 1200px) {
-    .sidebar{
-        width:calc(380px - 30px);
-    }
+    
 }

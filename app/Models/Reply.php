@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Like;
 use App\Models\User;
 use App\Models\Discussion;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,5 +25,29 @@ class Reply extends Model
 
     public function likes(){
         return $this->hasMany(Like::class);
+    }
+
+    public function liked(){
+        $likes=Auth::user()->likes;
+        //dd($likes);
+        if($likes){
+            $li=array();
+            $di=array();
+            foreach($likes->where('like','1') as $like){
+                array_push($li,$like->reply_id);
+            }
+            foreach($likes->where('dislike','1') as $like){
+                array_push($di,$like->reply_id);
+    
+            }
+            if(in_array($this->id,$li)){
+                return  'liked';
+            }
+            if(in_array($this->id,$di)){
+               return  'disliked';
+            }
+        }
+        return;
+
     }
 }

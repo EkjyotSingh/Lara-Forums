@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-{{--{{dd($discussions[0]->channel)}}--}}
     <h4>
         <div class="card-header bg-dark text-white text-center">
             @if(request()->query('channel'))
@@ -12,7 +10,7 @@
         </div>
     </h4>
     @foreach($discussions as $discussion)
-        <div class="card">
+        <div class="card" style="">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <div>
                         <span class="text-primary ">{{ucFirst($discussion->user->name)}}</span>
@@ -31,14 +29,14 @@
                         @else
                             <a class="btn disabled btn-sm btn-danger button-size">CLOSED</a>
                         @endif
-                        <a href="{{route('discussion.show',$discussion->slug)}}" class="btn btn-sm btn-outline-secondary ml-3 button-size" >View</a>
+                        <a href="{{route('discussion.show',$discussion->slug)}}" class="btn btn-sm btn-outline-secondary ml-3 button-size align-self-center" >View</a>
                     </div>
                 </div>
-            <div class="card-body text-center">
+            <div class="card-body">
                 <h5 class="">
                     {{ucFirst($discussion->title)}}
                 </h5>
-                <p>{{Str::limit($discussion->content,70)}}</p>
+                <p class="" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break: break-word;hyphens:auto;">{{$discussion->content}}</p>
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <span>{{$discussion->replies->count()}}&nbsp;Replies</span>
@@ -61,6 +59,7 @@
         </div>
     @endforeach
     <div class="mt-5 text-center">
-        {{$discussions->appends(['channel'=>request()->query('channel')])->links()}}
+        {{$discussions->appends(['channel'=>request()->query('channel'),'mydiscussions'=>request()->query('mydiscussions')])->links()}}
     </div>
 @endsection
+

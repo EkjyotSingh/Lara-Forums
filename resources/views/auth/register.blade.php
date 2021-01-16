@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="col-md-6">
+<div class="col col-sm-7 col-lg-6">
     <div class="card">
         <div class="card-header">{{ __('Register') }}</div>
 

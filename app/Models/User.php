@@ -57,10 +57,10 @@ class User extends Authenticatable
     public function watchers(){
         return $this->hasMany(Watcher::class);
     }
-    //public function likes(){
-    //    return $this->hasMany(Like::class);
-    //}
-    public function is_user_admin(){
+    public function likes(){
+        return $this->hasMany(Like::class);
+    }
+    public static function is_user_admin(){
         if(auth()->user()->role=='admin'){
             return true;
         }

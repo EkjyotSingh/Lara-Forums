@@ -18,7 +18,10 @@
                         <th>
                            Name
                         </th>
-                        <th></th>
+                        <th>
+                            Discussions
+                        </th>
+                        <th>Manage</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +30,7 @@
                         <tr>
                             <td>{{$i++}}</td>
                             <td>{{$channel->name}}</td>
+                            <td>{{$channel->discussions->count()}}</td>
                             <td>
                                 <a href="{{route('channel.edit',$channel->id)}}" class="btn btn-secondary">Edit</a>
                                 <form action="{{route('channel.destroy',$channel->id)}}" method="post" class=" d-inline">

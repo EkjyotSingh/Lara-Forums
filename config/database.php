@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,6 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            //'url' => $DATABASE_URL['host'],
             'host' => $DATABASE_URL['host'],
             'port' => $DATABASE_URL['port'],
             'database' => ltrim($DATABASE_URL['path'],'/'),

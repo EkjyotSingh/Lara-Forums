@@ -15,16 +15,14 @@
                     </span>
                     <a class="btn btn-sm btn-primary ml-3" href="{{route('discussion.show',$notification->data['discussion']['slug'])}}">View discussion</a>
                 </li>
-            @endif
-            @if($notification->type=="App\\Notifications\\WatcherNotify")
+            @elseif($notification->type=="App\\Notifications\\WatcherNotify")
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>Someone replied on the discussion:
                         <strong>{{$notification->data['discussion']['title']}}</strong> you were interested in
                     </span>
                     <a class="btn btn-sm btn-primary ml-3" href="{{route('discussion.show',$notification->data['discussion']['slug'])}}">View discussion</a>
                 </li>
-            @endif
-            @if($notification->type=="App\\Notifications\\BestReply")
+            @elseif($notification->type=="App\\Notifications\\BestReply")
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>Your reply on discussion
                         <strong>{{$notification->data['discussion']['title']}}</strong>
@@ -32,6 +30,7 @@
                     </span>
                     <a class="btn btn-sm btn-primary ml-3" href="{{route('discussion.show',$notification->data['discussion']['slug'])}}">View discussion</a>
                 </li>
+            @else
             @endif
         @endforeach
     @else

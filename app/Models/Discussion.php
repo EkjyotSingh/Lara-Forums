@@ -30,6 +30,13 @@ class Discussion extends Model
         return $this->hasMany(Watcher::class);
     }
 
+    public static function is_user_admin(){
+        if(auth()->user()->role=='admin'){
+            return true;
+        }
+        return false;
+    }
+
     public function scopeChannel_based($query){
         if(request()->query('channel')){
             $channel = Channel::where('slug',request()->query('channel'))->first();
@@ -37,6 +44,13 @@ class Discussion extends Model
             if($channel){
                 $query->where('channel_id',$channel->id);
             }
+        }
+        return $query;
+    }
+
+    public function scopeMy_disussions($query){
+        if(request()->query('mydiscussions')){
+            $query->where('user_id',Auth::id());
         }
         return $query;
     }

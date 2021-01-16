@@ -10,7 +10,7 @@ class ForumController extends Controller
 {
     public function index()
     {
-        $discussion=Discussion::Channel_based()->with('channel','user','replies','watchers')->latest()->simplePaginate(3);
+        $discussion=Discussion::Channel_based()->My_disussions()->with('channel','user','replies','watchers')->latest()->simplePaginate(3);
         //dd($discussion);
         return view('forum.index')->with('discussions',$discussion);
     }

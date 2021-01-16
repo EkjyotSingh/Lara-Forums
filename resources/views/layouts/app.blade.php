@@ -7,80 +7,129 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
     <!-- Styles -->
+    @yield('css')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/my.css') }}" rel="stylesheet">
 
 </head>
 <body>
     <div id="app">
-        {{--93.22px--}}
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm position-fixed " style="width:100%;height:55px;z-index:100000;">
-            <div class="container">
-                <a class="navbar-brand" href="{{ route('forum') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <nav class="shadow position-fixed d-flex align-items-center bg-white" style="width:100%;height:55px;z-index:100000;">
+            <div class="container-fluid d-flex justify-content-between align-items-center ">
+                <div class="">
+                    <a class="navbar-brand text-dark" href="{{ route('forum') }}" style="font-weight: 600;font-size: 25px;">
+                        {{ config('app.name', 'LaraForums') }}
+                    </a>
+                </div>
+                <div class="d-none d-md-flex align-items-center">
+                    @guest
+                        @if (Route::has('login'))
+                            <div class="mr-3">
+                                <a class=" text-secondary text-decoration-none" href="{{ route('login') }}">Login</a>
+                            </div>
+                        @endif
+                        
+                        @if (Route::has('register'))
+                            <div class="">
+                                <a class="text-secondary text-decoration-none" href="{{ route('register') }}">Register</a>
+                            </div>
+                        @endif
+                    @else
+                        <?php $noti_count=auth()->user()->unreadNotifications()->count()?>
+                        <div class=" dropdown">
+                            <a id="navbarDropdown" class="text-decoration-none text-dark dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-                            
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-decoration-none text-secondary" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    Logout
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
+                    @endguest
+                </div>
+                <div class="f-flex align-items-center d-md-none hamberger">
+                    <svg class="icon icon-menu" onclick="open_sidebar()"><use xlink:href="{{asset('img/sprite.svg#icon-menu')}}"></use></svg>
                 </div>
             </div>
         </nav>
 
-        <main class="pb-4 pt-5">
-            <div class="container pt-4">
+
+
+
+
+        <div class="sidebar-small position-fixed overflow-auto mt-1 d-md-none d-block shadow">
+            <div class="">
+                <div class="container pt-4 py-5">
+                    @auth
+                        @if(Auth::user()->is_user_admin())
+                            <a href="{{route('channel.create')}}" class="btn btn-primary d-block mb-4">Add a new channel</a>
+                        @endif
+                            <a href="{{route('discussion.create')}}" class=" text-white btn d-block mb-4" style="background:#6f42c1;">Add a new discussion</a>
+                    @else
+                            <a href="{{route('login')}}" class=" btn-success btn d-block mb-4">Sign in to add a new discussion</a>
+                    @endauth
+                    <div class="list-group  mb-5">
+                        <a class="line_1 list-group-item list-group-item-action d-flex justify-content-between {{request()->is('/') && !request()->query('mydiscussions') && !request()->query('channel')?'bg-secondary text-white':''}}" href="{{route('forum')}}">Home</a>
+                        @auth
+                            <a class="line_1 list-group-item list-group-item-action d-flex justify-content-between {{request()->is('notifications')?'bg-secondary text-white':''}}" href="{{route('notificaion.show')}}">
+                                <span>Notifications</span>
+                                @if($noti_count>0)
+                                    <span class="badge bg-primary  text-white d-flex align-items-center justify-content-between">{{$noti_count}}</span>
+                                @endif
+                            </a>
+                            <a class="line_1 list-group-item list-group-item-action d-flex justify-content-between {{request()->query('mydiscussions') && request()->query('mydiscussions')=='yes'?'bg-secondary text-white':''}}" href="{{route('forum').'?mydiscussions=yes'}}"><span>My Discussions</span></a>
+                        @endauth
+                    </div>
+                    <div class="d-inline pt-3">
+                        <span ><h4 class="d-inline">Channels</h4></span>
+                        <a class="float-right pr-2" href="{{route('channel.index')}}">Manage</a>
+                    </div>
+                    
+                    <div class="list-group  list-group-flush">
+                        @foreach($channels as $channel)
+                            <a href="{{route('forum').'?channel='.$channel->slug}}" class="line_1 text-break list-group-item list-group-item-action d-flex justify-content-between {{request()->query('channel') && request()->query('channel')==$channel->slug?'bg-secondary text-white':''}}">
+                                <span>{{ucFirst($channel->name)}}</span>
+                                <span class="badge bg-primary  text-white d-flex align-items-center justify-content-between" style="max-height:20px;">{{$channel->discussions->count()}}</span>
+                            </a>
+                        @endforeach
+                    </div>
+                    @auth
+                        <form  action="{{ route('logout') }}" method="POST"  class="my-4">
+                            @csrf
+                            <button type="submit" class="btn btn-primary" style="width:100%;">Logout</button>
+                        </form>
+                    @endauth
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <main  style="background-color:#f1f2f7;">
+            <div class=" pt-5">
                 @if (session('success'))
                     <div class="notification">
                         <span>{{ session('success') }}</span>
@@ -98,28 +147,27 @@
                     </div>
                 @endif
                 @if(!Request::is('login') && !Request::is('register'))
-                    <div class="row justify-content-center">
-                        <div class="col-md-4 position-relative sidebar_cont">
-                            <div class="position-fixed sidebar">
+                    <div class=" position-relative d-md-flex" style="padding-top:56px;">
+                        <div class="d-none d-md-block sidebar_cont">
+                            <div class=" sidebar bg-white py-5 px-3">
                                 @auth
                                     @if(Auth::user()->is_user_admin())
                                         <a href="{{route('channel.create')}}" class="btn btn-primary d-block mb-4">Add a new channal</a>
                                     @endif
                                         <a href="{{route('discussion.create')}}" class=" text-white btn d-block mb-4" style="background:#6f42c1;">Add a new discussion</a>
                                 @else
-                                        <a href="{{route('login')}}" class=" btn-success text-white btn d-block mb-4">Sign in to add a new discussion</a>
+                                        <a href="{{route('login')}}" class=" btn-success btn d-block mb-4">Sign in to add a new discussion</a>
                                 @endauth
                                 <div class="list-group  mb-5">
-                                    <a class="list-group-item list-group-item-action d-flex justify-content-between" href="{{route('forum')}}">Home</a>
+                                    <a class="line_1 list-group-item list-group-item-action d-flex justify-content-between {{request()->is('/') && !request()->query('mydiscussions') && !request()->query('channel')?'bg-secondary text-white':''}}" href="{{route('forum')}}">Home</a>
                                     @auth
-                                        <a class="list-group-item list-group-item-action d-flex justify-content-between" href="{{route('notificaion.show')}}">
+                                        <a class=" line_1 list-group-item list-group-item-action d-flex justify-content-between {{request()->is('notifications')?'bg-secondary text-white':''}}" href="{{route('notificaion.show')}}">
                                             <span>Notifications</span>
-                                            <?php $noti_count=auth()->user()->unreadNotifications()->count()?>
                                             @if($noti_count>0)
                                                 <span class="badge bg-primary  text-white d-flex align-items-center justify-content-between">{{$noti_count}}</span>
                                             @endif
                                         </a>
-                                        <a class="list-group-item list-group-item-action d-flex justify-content-between" href="{{route('forum')}}"><span>My Discussions</span></a>
+                                        <a class="line_1 list-group-item list-group-item-action d-flex justify-content-between {{request()->query('mydiscussions') && request()->query('mydiscussions')=='yes'?'bg-secondary text-white':''}}" href="{{route('forum').'?mydiscussions=yes'}}"><span>My Discussions</span></a>
                                     @endauth
                                 </div>
                                 <div class="d-inline pt-3">
@@ -127,11 +175,11 @@
                                     <a class="float-right pr-2" href="{{route('channel.index')}}">Manage</a>
                                 </div>
                                 
-                                <div class="list-group  ">
+                                <div class="list-group">
                                     @foreach($channels as $channel)
-                                        <a href="{{route('forum').'?channel='.$channel->slug}}" class="list-group-item list-group-item-action d-flex justify-content-between">
-                                            <span>{{ucFirst($channel->name)}}</span>
-                                            <span class="badge bg-primary  text-white d-flex align-items-center justify-content-between">{{$channel->discussions->count()}}</span>
+                                        <a href="{{route('forum').'?channel='.$channel->slug}}" class="line_1 text-break list-group-item list-group-item-action d-flex justify-content-between {{request()->query('channel') && request()->query('channel')==$channel->slug?'bg-secondary text-white':''}}">
+                                            <span >{{ucFirst($channel->name)}}</span>
+                                            <span class="badge bg-primary  text-white d-flex align-items-center justify-content-between" style="max-height:20px;">{{$channel->discussions->count()}}</span>
                                         </a>
                                     @endforeach
                                 </div>
@@ -139,12 +187,19 @@
                             </div>
                         </div>
                         
-                        <div class="col-md-8">
+                        <div class="mx-3 mx-md-5 main_container" style="min-width:0;">
                             @yield('content')
                         </div>
                     </div>
+
+                    <footer class="d-md-flex">
+                        <div class="d-none d-md-block footer_side"></div>
+                        <div class="mt-5 py-3 border-top border-top-secondary" style="flex-grow:1;">
+                            <div class="text-center text-secondary">Copyright © {{\Carbon\Carbon::parse(now())->format('Y')}} <a href="{{route('forum')}}"class="text-primary"> {{ config('app.name', 'LaraForums') }}</a>. All rights reserved.</div>
+                        </div>
+                    </footer>
                     @else
-                        <div class="row justify-content-center">
+                        <div class="row no-gutters px-3 justify-content-center" style="padding-top:56px;min-height:calc(100vh - 48px);">
                             @yield('content')
                         </div>
                     @endif
@@ -157,6 +212,26 @@
             $('.notification').css('transform','translateX(120%)');
 
         }
+        setTimeout(function(){
+            $('.notification').slideUp(100).fadeOut(100);
+        },6000)
+
+        function open_sidebar(){
+            $('.icon-menu').remove();
+            let html=`<svg class="icon icon-cross icon-cross-sidebar" onclick="close_sidebar()"><use xlink:href="{{asset('img/sprite.svg#icon-cross')}}"></use></svg>`;
+            $('.hamberger').append(html);
+            $('.sidebar-small').css('transform','translateX(0%)');
+            $('body').css('overflow','hidden');
+        }
+
+        function close_sidebar(){
+            $('body').css('overflow','auto');
+            $('.icon-cross-sidebar').remove();
+            let html=`<svg class="icon icon-menu" onclick="open_sidebar()"><use xlink:href="{{asset('img/sprite.svg#icon-menu')}}"></use></svg>`;
+            $('.hamberger').append(html);
+            $('.sidebar-small').css('transform','translateX(110%)');
+        }
     </script>
+    @yield('script')
 </body>
 </html>

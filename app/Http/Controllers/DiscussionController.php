@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Reply;
 use App\Models\Discussion;
 use Illuminate\Support\Str;
@@ -35,10 +36,37 @@ class DiscussionController extends Controller
         return redirect()->route('forum');
     }
 
-    public function show($discussion){
-        //dd(Reply::with('likes')->get());
-        //dump(Discussion::where('id',$discussion)->with('replies.likes','replies.user','channel')->get());
-        return view('forum.single_discussion')->with('discussion',Discussion::where('slug',$discussion)->with('replies.user','channel','replies.likes')->first());
+    public function show($discussion_slug){
+        return view('forum.single_discussion')->with('discussion',Discussion::where('slug',$discussion_slug)->with('replies.user','channel','replies.likes')->first());
+    }
+
+    public function edit($discussion_slug){
+        $discussion=Discussion::where('slug',$discussion_slug)->first();
+        if($discussion->closed!=1 &&  ($discussion->user_id == Auth::id() || User::is_user_admin())){
+            return view('forum.discussion_create')->with('discussion',Discussion::where('slug',$discussion_slug)->first());
+        }
+        else{
+            return back();
+        }
+    }
+
+    public function update(Request $request,$slug){
+        
+        $this->validate($request,[
+            'content'=>'required',
+        ]);
+        $discussion=Discussion::where('slug',$slug)->first();
+        if($discussion->closed!=1 &&  ($discussion->user_id == Auth::id() || User::is_user_admin())){
+           $discussion->update([
+            'content'=>$request->content,
+           ]);
+            Session::flash('success','Discussion updated successfully');
+            return redirect()->route('discussion.show',[$discussion->slug])->with('replies.user','channel','replies.likes');
+        }
+        else{
+            return back();
+        }
+        
     }
 
     public function discussion_closed($id){

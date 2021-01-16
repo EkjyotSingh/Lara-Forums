@@ -81,7 +81,7 @@ class ChannelController extends Controller
     public function update(Request $request, Channel $channel)
     {
         $this->validate($request,[
-            'name'=>'required|unique:channels'
+            'name'=>'required|unique:channels,name,'.$channel->id
         ]);
         $channel->update([
             'name'=>$request->name,
@@ -99,8 +99,13 @@ class ChannelController extends Controller
      */
     public function destroy(Channel $channel)
     {
-        $channel->delete();
-        Session::flash('success','Channel deleted successfully');
-        return redirect()->route('channel.index');
+        if($channel->discussions->count()==0){
+            $channel->delete();
+            Session::flash('success','Channel deleted successfully');
+            return redirect()->route('channel.index');
+        }else{
+            Session::flash('error','Channel has discussions');
+            return redirect()->route('channel.index');
+        }
     }
 }

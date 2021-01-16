@@ -22,11 +22,11 @@ class UserTableSeeder extends Seeder
             'password'=>Hash::make('11111111')
 
         ]);
-    //    User::create([
-    //        'name'=>'ekjyot',
-    //        'email'=>'ekjyot091@gmail.com',
-    //        'password'=>Hash::make('11111111'),
-    //        'role'=>'writer',
-    //    ]);
+        User::create([
+            'name'=>'ekjyot',
+            'email'=>'ekjyotphp@gmail.com',
+            'password'=>Hash::make('11111111'),
+            'role'=>'writer',
+        ]);
     }
 }

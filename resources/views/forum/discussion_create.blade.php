@@ -1,17 +1,23 @@
 @extends('layouts.app')
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{asset('css/trix.css')}}">
+@endsection
 @section('content')
 <div class="card">
     <h5>
         <div class="card-header text-center">
-            Discussion Create
+            {{isset($discussion)?'Discussion Update':'Discussion Create'}}
         </div>
     </h5>
     <div class="card-body">
-        <form action="{{route('discussion.store')}}" method="post">
+        <form action="{{isset($discussion)?route('discussion.update',$discussion->slug):route('discussion.store')}}" method="post">
             @csrf
+            @if(isset($discussion))
+                @method('PUT')
+            @endif
             <div class="form-group">
                 <label>Title</label>
-                <input type="text" placeholder="Title" name="title" class="form-control @error('title') border border-danger @enderror">
+                <input type="text" {{isset($discussion)?'readonly':''}} placeholder="Title" name="title" class="form-control @error('title') border border-danger @enderror" value="{{isset($discussion)?$discussion->title:''}}">
                 @error('title')
                     <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -19,29 +25,43 @@
 
             <div class="form-group">
                 <label>Category</label>
-                <select class="form-control @error('channel') border border-danger @enderror" name="channel">
-                    @foreach($channels as $channel)
-                        <option value="{{$channel->id}}">{{$channel->name}}</option>
-                    @endforeach
+                <select {{isset($discussion)?'disabled=true':''}} class="form-control @error('channel') border border-danger @enderror" name="channel">
+                    @if(isset($discussion))
+                        @foreach($channels as $channel)
+                        <?php $selected=''?>
+                            @if($discussion->channel_id == $channel->id)
+                                <?php $selected='selected';?>
+                            @endif 
+                            <option value="{{$channel->id}}" {{$selected}}>{{$channel->name}}</option>
+                        @endforeach
+                    @else
+                        @foreach($channels as $channel)
+                            <option value="{{$channel->id}}">{{$channel->name}}</option>
+                        @endforeach
+                    @endif
                 </select>
                 @error('channel')
                     <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
 
-            <div class="form-group">
+            <div class="form-group overflow-scroll">
                 <label>Content</label>
-                <textarea name="content" class="form-control @error('content') border border-danger @enderror"></textarea>
+                <input id="text" type="hidden" name="content" value="{{isset($discussion)?$discussion->content:old('content')}}">
+                <trix-editor input="text" style="min-height:270px" class="form-control overflow-auto @error('content') border border-danger @enderror" placeholder="Content"></trix-editor>
                 @error('content')
                     <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-success">
-                    Submit
+                    {{isset($discussion)?'Update':'Create'}}
                 </button>
             </div>
         </form>
     </div>
 </div>
+@endsection
+@section('script')
+    <script type="text/javascript" src="{{asset('js/trix.js')}}"></script>
 @endsection
