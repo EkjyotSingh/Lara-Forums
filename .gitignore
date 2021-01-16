@@ -10,5 +10,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/config/database.php
-/app/Providers/AppServiceProvider.php
+#/config/database.php
+#/app/Providers/AppServiceProvider.php
