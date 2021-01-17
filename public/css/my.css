@@ -90,7 +90,7 @@
     position:absolute;
     top:51px;
     right:0;
-    height:calc(100vh - 59px);
+    height:calc(100vh - 51px);
     width:50%;
     background:white;
     z-index:1000000;

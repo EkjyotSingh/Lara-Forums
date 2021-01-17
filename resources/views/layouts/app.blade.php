@@ -68,7 +68,7 @@
                 </div>
                 <div class="f-flex align-items-center d-md-none hamberger">
                     <svg class="icon icon-menu" onclick="open_sidebar()"><use xlink:href="{{asset('img/sprite.svg#icon-menu')}}"></use></svg>
-                </div>
+                    <svg class="icon icon-cross icon-cross-sidebar d-none" onclick="close_sidebar()"><use xlink:href="{{asset('img/sprite.svg#icon-cross')}}"></use></svg>                </div>
             </div>
         </nav>
 
@@ -217,18 +217,16 @@
         },6000)
 
         function open_sidebar(){
-            $('.icon-menu').remove();
-            let html=`<svg class="icon icon-cross icon-cross-sidebar" onclick="close_sidebar()"><use xlink:href="{{asset('img/sprite.svg#icon-cross')}}"></use></svg>`;
-            $('.hamberger').append(html);
             $('.sidebar-small').css('transform','translateX(0%)');
             $('body').css('overflow','hidden');
+            $('.icon-cross-sidebar').toggleClass('d-none');
+            $('.icon-menu').addClass('d-none');
         }
 
         function close_sidebar(){
             $('body').css('overflow','auto');
-            $('.icon-cross-sidebar').remove();
-            let html=`<svg class="icon icon-menu" onclick="open_sidebar()"><use xlink:href="{{asset('img/sprite.svg#icon-menu')}}"></use></svg>`;
-            $('.hamberger').append(html);
+            $('.icon-menu').toggleClass('d-none');
+            $('.icon-cross-sidebar').addClass('d-none');
             $('.sidebar-small').css('transform','translateX(110%)');
         }
     </script>
