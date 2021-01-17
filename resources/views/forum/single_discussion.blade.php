@@ -2,6 +2,7 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{asset('css/trix.css')}}">
     <link rel="stylesheet" href="{{asset('css/atom-one-dark.css')}}">
+    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css">--}}
     
 @endsection
 @section('content')
@@ -151,6 +152,8 @@
 @endsection
 @section('script')
     <script type="text/javascript" src="{{asset('js/trix.js')}}"></script>
+    {{--<script defer  src="{{asset('js/highlight.js')}}"></script>--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/go.min.js"></script>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', (event) => {
         document.querySelectorAll('pre').forEach((block) => {
