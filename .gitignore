@@ -10,9 +10,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-<<<<<<< HEAD
 /config/database.php
-=======
-#/config/database.php
->>>>>>> 3c2ceeb1206dab4c6b339d13a99661c7f1ef414f
 #/app/Providers/AppServiceProvider.php
