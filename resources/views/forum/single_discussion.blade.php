@@ -1,8 +1,7 @@
 @extends('layouts.app')
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{asset('css/trix.css')}}">
-    <link rel="stylesheet" href="{{asset('css/atom-one-dark.css')}}">
-    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css">--}}
+    <link rel="stylesheet" href="{{asset('css/desert.css')}}">
     
 @endsection
 @section('content')
@@ -151,18 +150,14 @@
 
 @endsection
 @section('script')
+<script type="text/javascript" src="{{asset('js/prettify.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/trix.js')}}"></script>
-    {{--<script defer  src="{{asset('js/highlight.js')}}"></script>--}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/go.min.js"></script>
     <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', (event) => {
-        document.querySelectorAll('pre').forEach((block) => {
-        hljs.highlightBlock(block);
-    });
-    });
+    $('pre').addClass('prettyprint');
+    $('pre').addClass('linenums');
     document.addEventListener("trix-file-accept", event => {
         event.preventDefault()
     })
+    addEventListener('load', function(event) { PR.prettyPrint(); }, false);
     </script>
-
 @endsection

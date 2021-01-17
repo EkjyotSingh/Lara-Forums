@@ -209,7 +209,6 @@
             </div>
         </main>
     </div>
-    {{--<script defer src="{{asset('js/svgxuse.min.js')}}"></script>--}}
     <script>
         function noti_hide(){
             $('.notification').css('opacity','0');
