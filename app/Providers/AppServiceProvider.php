@@ -29,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
         if($this->app->environment('production')) {
             URL::forceScheme('https');
         }
+<<<<<<< HEAD
         View::share('channels',Channel::with('discussions')->get());
+=======
+        View::share('channels',Channel::all());
+>>>>>>> 3c2ceeb1206dab4c6b339d13a99661c7f1ef414f
     }
 }
