@@ -151,7 +151,6 @@
 @endsection
 @section('script')
     <script type="text/javascript" src="{{asset('js/trix.js')}}"></script>
-    <script type="module" defer  src="{{asset('js/highlight.js')}}"></script>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', (event) => {
         document.querySelectorAll('pre').forEach((block) => {
