@@ -206,6 +206,8 @@
             </div>
         </main>
     </div>
+    <script src="{{asset('js/svg4everybody.min.js')}}"></script>
+    <script>svg4everybody();</script>
     <script>
         function noti_hide(){
             $('.notification').css('opacity','0');
@@ -215,7 +217,6 @@
         setTimeout(function(){
             $('.notification').slideUp(100).fadeOut(100);
         },6000)
-
         function open_sidebar(){
             $('.sidebar-small').css('transform','translateX(0%)');
             $('body').css('overflow','hidden');
