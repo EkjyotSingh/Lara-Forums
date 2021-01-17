@@ -201,7 +201,7 @@
 
                     <footer class="d-md-flex">
                         <div class="d-none d-md-block footer_side"></div>
-                        <div class="mt-5 py-3 border-top border-top-secondary" style="flex-grow:1;">
+                        <div class="mt-5 py-3 border-top border-top-secondary" style="flex-grow:1;min-width:0;">
                             <div class="text-center text-secondary">Copyright © {{\Carbon\Carbon::parse(now())->format('Y')}} <a href="{{route('forum')}}"class="text-primary"> {{ config('app.name', 'LaraForums') }}</a>. All rights reserved.</div>
                         </div>
                     </footer>
@@ -213,11 +213,7 @@
             </div>
         </main>
     </div>
-<<<<<<< HEAD
     {{--<script defer src="{{asset('js/svgxuse.min.js')}}"></script>--}}
-=======
-    <script defer src="{{asset('js/svgxuse.min.js')}}"></script>
->>>>>>> 3c2ceeb1206dab4c6b339d13a99661c7f1ef414f
     <script>
         function noti_hide(){
             $('.notification').css('opacity','0');
