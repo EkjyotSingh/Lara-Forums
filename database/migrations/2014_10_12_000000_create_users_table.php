@@ -21,6 +21,10 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->string('provider')->nullable();
             $table->integer('provider_id')->nullable();
+            $table->boolean('discussion_status')->default(1);
+            $table->boolean('reply_status')->default(1);
+            $table->timestamp('last_discussion_at')->nullable();
+            $table->timestamp('last_reply_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

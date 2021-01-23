@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\UserController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ChannelController;
@@ -48,6 +49,11 @@ Route::get('/discussions/{discussion}', [App\Http\Controllers\DiscussionControll
 
 Route::middleware(['auth','admin'])->group(function(){
     Route::resource('channel',ChannelController::class);
+    Route::get('users',[UserController::class,'index'])->name('user.index');
+    Route::post('user/{id}/edit',[UserController::class,'show'])->name('user.show');
+    Route::put('user/{id}/update',[UserController::class,'update'])->name('user.update');
+
+
 });
 
 

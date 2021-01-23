@@ -26,7 +26,9 @@ class User extends Authenticatable
         'password',
         'role',
         'provider_id',
-        'provider'
+        'provider',
+        'last_discussion_at',
+        'last_reply_at',
     ];
 
     /**

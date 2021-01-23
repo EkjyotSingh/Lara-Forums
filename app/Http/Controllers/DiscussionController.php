@@ -13,27 +13,38 @@ use Illuminate\Support\Facades\Session;
 
 class DiscussionController extends Controller
 {
+    public function __construct(){
+        $this->middleware('discussion_limit')->only('store'); 
+    }
     public function create(){
         return view('forum.discussion_create');
     }
 
     public function store(Request $request){
-        $this->validate($request,[
-            'title'=>'required|unique:discussions',
-            'content'=>'required',
-            'channel'=>'required',
-        ]);
-
-        Discussion::create([
-            'title'=>$request->title,
-            'content'=>$request->content,
-            'user_id'=>Auth::id(),
-            'channel_id'=>$request->channel,
-            'slug'=>Str::slug($request->title)
-        ]);
-
-        Session::flash('success','Discussion created successfully');
-        return redirect()->route('forum');
+        if(auth()->user()->discussion_status){
+            $this->validate($request,[
+                'title'=>'required|unique:discussions',
+                'content'=>'required',
+                'channel'=>'required',
+            ]);
+    
+            Discussion::create([
+                'title'=>$request->title,
+                'content'=>$request->content,
+                'user_id'=>Auth::id(),
+                'channel_id'=>$request->channel,
+                'slug'=>Str::slug($request->title)
+            ]);
+           User::where('id',Auth::id())->update([
+                'last_discussion_at'=>now(),
+            ]);
+    
+            Session::flash('success','Discussion created successfully');
+            return redirect()->route('forum');
+        }else{
+            Session::flash('error','Admin blocked you from creating discussion.Contact him for any query');
+            return redirect()->back();
+        }
     }
 
     public function show($discussion_slug){

@@ -100,6 +100,9 @@
                                 @endif
                             </a>
                             <a class="line_1 list-group-item list-group-item-action d-flex justify-content-between {{request()->query('mydiscussions') && request()->query('mydiscussions')=='yes'?'bg-secondary text-white':''}}" href="{{route('forum').'?mydiscussions=yes'}}"><span>My Discussions</span></a>
+                            @if(auth()->user()->role=='admin')
+                                <a class="line_1 list-group-item list-group-item-action d-flex justify-content-between {{request()->is('user*')?'bg-secondary text-white':''}}" href="{{route('user.index')}}"><span>Users</span></a>
+                            @endif
                         @endauth
                     </div>
                     <div class="d-inline pt-3">
@@ -171,6 +174,9 @@
                                             @endif
                                         </a>
                                         <a class="line_1 list-group-item list-group-item-action d-flex justify-content-between {{request()->query('mydiscussions') && request()->query('mydiscussions')=='yes'?'bg-secondary text-white':''}}" href="{{route('forum').'?mydiscussions=yes'}}"><span>My Discussions</span></a>
+                                        @if(auth()->user()->role=='admin')
+                                            <a class="line_1 list-group-item list-group-item-action d-flex justify-content-between {{request()->is('user*')?'bg-secondary text-white':''}}" href="{{route('user.index')}}"><span>Users</span></a>
+                                        @endif
                                     @endauth
                                 </div>
                                 <div class="d-inline pt-3">

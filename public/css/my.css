@@ -104,6 +104,36 @@
     line-height:1 !important;
     padding:17px 10px;
 }
+pre{
+    height:500px;
+}
+pre::-webkit-scrollbar{
+  width: 10px;
+  height:10px;
+}
+pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+pre::-webkit-scrollbar-thumb:horizontal {
+    background: #888;
+    border-radius: 80px;
+    background-clip: content-box;}
+pre::-webkit-scrollbar-thumb:vertical {
+  background: rgb(151, 148, 148);
+  border-radius: 50px;
+}
+pre::-webkit-scrollbar-corner {
+    background: rgba(0,0,0,0);
+  }
+pre::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.icon-arrow-left2{
+    height:15px;
+    width:15px;
+    fill:white;
+}
+
 
 trix-toolbar [data-trix-button-group="file-tools"] {
     display: none;
