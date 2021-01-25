@@ -10,7 +10,7 @@
         @foreach($notifications as $notification)
             @if($notification->type=="App\\Notifications\\NewReplyAdded")
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>Someone replied of your discussion:
+                    <span>Someone replied on your discussion:
                         <strong>{{$notification->data['discussion']['title']}}</strong>
                     </span>
                     <a class="btn btn-sm btn-primary ml-3" href="{{route('discussion.show',$notification->data['discussion']['slug'])}}">View discussion</a>
@@ -24,7 +24,7 @@
                 </li>
             @elseif($notification->type=="App\\Notifications\\BestReply")
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>Your reply on discussion
+                    <span>Congratulation,your reply on discussion
                         <strong>{{$notification->data['discussion']['title']}}</strong>
                         marked as best
                     </span>
