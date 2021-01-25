@@ -11,7 +11,6 @@
 
     <!-- Scripts -->
     <script src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -48,11 +47,14 @@
                     @else
                         <?php $noti_count=auth()->user()->unreadNotifications()->count()?>
                         <div class=" dropdown">
-                            <a id="navbarDropdown" class="text-decoration-none text-dark dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
+                            <a id="navbarDropdown" onclick="navDrop()" class="text-decoration-none text-dark" href="javascript:void(0)">
+                                <span>{{ Auth::user()->name }}</span>
+                                <svg class="icon-play3 ml-1">
+                                    <use xlink:href="{{asset('img/sprite.svg#icon-play3')}}"></use>
+                                </svg>
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <div style="position:absolute;right:10px;top:41px;" class="drop_container d-none shadow btn bg-white">
                                 <a class="dropdown-item text-decoration-none text-secondary" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
@@ -236,6 +238,11 @@
             $('.icon-menu').toggleClass('d-none');
             $('.icon-cross-sidebar').addClass('d-none');
             $('.sidebar-small').css('transform','translateX(110%)');
+        }
+
+        function navDrop(){
+            $('.drop_container').toggleClass('d-none');
+            $('.icon-play3').toggleClass('trans_logout_arrow');
         }
     </script>
     @yield('script')

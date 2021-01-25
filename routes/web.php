@@ -22,7 +22,7 @@ use App\Http\Controllers\Auth\LoginController;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\wForumController::class, 'index'])->name('forum');
+Route::get('/', [App\Http\Controllers\ForumController::class, 'index'])->name('forum');
 
 Route::middleware(['auth'])->group(function(){
 Route::get('/discussion/create', [App\Http\Controllers\DiscussionController::class, 'create'])->name('discussion.create');

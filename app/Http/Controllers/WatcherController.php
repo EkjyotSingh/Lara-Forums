@@ -17,7 +17,7 @@ class WatcherController extends Controller
                 'user_id'=>Auth::id(),
                 'discussion_id'=>$did
             ]);
-            Session::flash('success','You will be notified for this discussion');
+            Session::flash('success','You will be notified for this discussion,email will be trapped in mailtrap as website is in testing phase');
         }else{
             Session::flash('error','You have created this discussion,so you cannot subscribe this discussion');
         }
