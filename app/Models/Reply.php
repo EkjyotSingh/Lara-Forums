@@ -29,7 +29,6 @@ class Reply extends Model
 
     public function liked(){
         $likes=Auth::user()->likes;
-        //dd($likes);
         if($likes){
             $li=array();
             $di=array();

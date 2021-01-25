@@ -56,13 +56,13 @@
 @foreach(collect($discussion->replies)->sortByDesc('created_at') as $reply)
     <div class="card">
         <div class="card-header {{$reply->user_id==Auth::id()?'green':''}} d-flex align-items-center justify-content-between">
-            @if(false)
+            {{--@if(false)
                 <img src="" class="mr-3 img-fluid rounded-circle" style="min-width:2rem; height:2rem;"/>
-            @else
+            @else--}}
                 <div class="mr-3 bg-primary text-white rounded-circle  d-flex align-items-center justify-content-center" style="min-width:2rem; height:2rem;">
                     {{ucFirst(substr($reply->user->name,0,2))}}
                 </div>
-            @endif
+            {{--@endif--}}
             <div class="d-flex justify-content-end  align-items-center flex-wrap">
                 @if($discussion->is_best_answer())
                     @if(Auth::check() && (Auth::id() == $discussion->user_id))

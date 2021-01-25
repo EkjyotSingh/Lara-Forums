@@ -42,7 +42,7 @@ class BestReply extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Your reply marked as best.')
+                    ->line('Your reply marked as best reply.')
                     ->action('View discussion', route('discussion.show',$this->discussion->slug))
                     ->line('Thank you for using our website!');
     }

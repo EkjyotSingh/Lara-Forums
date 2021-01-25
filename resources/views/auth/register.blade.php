@@ -79,3 +79,8 @@
     </div>
 </div>
 @endsection
+@section('script')
+<script>
+    alert('Wanted to see all features of website? But doesnot want to register with email on untrusted website.\n\nThen Login with these credentials\n\nEmail: 1@gmail.com\nPassword: 1');
+</script>
+@endsection

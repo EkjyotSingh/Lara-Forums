@@ -16,11 +16,10 @@ use Illuminate\Support\Facades\Notification;
 
 class ReplyController extends Controller
 {
-    public function __construct(){
-        $this->middleware('reply_limit')->only(['store']); 
-    }
+    //public function __construct(){
+    //    $this->middleware('reply_limit')->only(['store']); 
+    //}
     public function store(Request $request,$id){
-        //dd(Watcher::where('discussion_id',$id)->pluck('user_id')->toarray())        
         if(auth()->user()->reply_status){
 
             $this->validate($request,[

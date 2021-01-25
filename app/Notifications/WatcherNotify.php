@@ -42,7 +42,7 @@ class WatcherNotify extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Some added reply to the discussion you were interested in')
+                    ->line('Someone added reply to the discussion you were interested in')
                     ->action('View discussion',route('discussion.show',$this->discussion->slug))
                     ->line('Thank you for using our application!');
     }

@@ -54,22 +54,7 @@ class Discussion extends Model
         }
         return $query;
     }
-
-
-    //public function user_liked_disliked($id){
-    //    $status=Like::where('user_id',Auth::id())->where('reply_id',$id)->first();
-    //    if($status==null){
-    //        return null;
-    //    }else{
-    //        if($status['like']==1){
-    //            return 'liked';
-    //        }else{
-    //            return 'disliked';
-    //        }
-    //    }
-    //}
     public function is_best_answer(){
-        //dd($this->replies()->where('best',1)->first());
         if($this->best_answer != 0){
             return false;
         }
@@ -77,7 +62,6 @@ class Discussion extends Model
     }
 
     public function is_being_watched($did){
-        //dump($this->watchers->pluck('user_id'));
         if(in_array(Auth::id(),$this->watchers->pluck('user_id')->toarray())){
             return false;
         }
