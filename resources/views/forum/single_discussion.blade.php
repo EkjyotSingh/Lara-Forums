@@ -153,11 +153,12 @@
 <script type="text/javascript" src="{{asset('js/prettify.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/trix.js')}}"></script>
     <script type="text/javascript">
-    $('pre').addClass('prettyprint');
-    $('pre').addClass('linenums');
-    document.addEventListener("trix-file-accept", event => {
-        event.preventDefault()
-    })
-    addEventListener('load', function(event) { PR.prettyPrint(); }, false);
+        $('pre').addClass('prettyprint');
+        $('pre').addClass('py-2');
+        $('pre').addClass('linenums');
+        document.addEventListener("trix-file-accept", event => {
+            event.preventDefault()
+        })
+        addEventListener('load', function(event) { PR.prettyPrint(); }, false);
     </script>
 @endsection

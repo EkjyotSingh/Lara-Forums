@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Notification;
 
 class ReplyController extends Controller
 {
-    //public function __construct(){
-    //    $this->middleware('reply_limit')->only(['store']); 
-    //}
+    public function __construct(){
+        $this->middleware('reply_limit')->only(['store']); 
+    }
     public function store(Request $request,$id){
         if(auth()->user()->reply_status){
 

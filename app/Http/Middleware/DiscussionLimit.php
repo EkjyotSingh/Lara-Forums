@@ -20,7 +20,7 @@ class DiscussionLimit
         if(auth()->user()->role !='admin'){
             if(auth()->user()->last_discussion_at !=null){
                     if(now()->diffInSeconds(auth()->user()->last_discussion_at) < 1800 ){
-                        Session::flash('error','You discussion create limit has reached,Try after 30 minutes from last discussion created');
+                        Session::flash('error','Discussion create limit has reached,Try after 30 minutes from last discussion created');
                         return back();
                     }
             }

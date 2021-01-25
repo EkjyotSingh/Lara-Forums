@@ -105,7 +105,10 @@
     padding:17px 10px;
 }
 pre{
-    height:500px;
+    min-height:30px;
+    max-height:500px;
+    /*padding:0 auto;*/
+    border-radius:5px
 }
 pre::-webkit-scrollbar{
   width: 10px;
