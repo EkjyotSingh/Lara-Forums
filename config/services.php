@@ -32,7 +32,7 @@ return [
     'github' => [
         'client_id' => env('GITHUB_CLIENT_ID'),
         'client_secret' => env('GITHUB_CLIENT_SECRET'),
-        'redirect' => 'https://ekjyotforum.herokuapp.com/login/github/callback',
+        'redirect' => env('GITHUB_CLIENT_CALLBACK_URL'),
     ],
 
 ];
