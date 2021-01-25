@@ -54,6 +54,9 @@ class Discussion extends Model
         }
         return $query;
     }
+
+
+   
     public function is_best_answer(){
         if($this->best_answer != 0){
             return false;
