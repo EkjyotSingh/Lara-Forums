@@ -1,4 +1,15 @@
 @extends('layouts.app')
+@section('title')
+    @if(request()->query('channel'))
+        {{ucFirst(request()->query('channel'))}}
+    
+    @elseif(request()->query('mydiscussions'))
+        My Discussions
+    @else
+        Forum Discussions
+    
+    @endif
+@endsection
 @section('content')
     <h4>
         <div class="card-header bg-dark text-white text-center">

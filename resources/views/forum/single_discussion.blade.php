@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title',ucFirst($discussion->title))
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{asset('css/trix.css')}}">
     <link rel="stylesheet" href="{{asset('css/desert.css')}}">

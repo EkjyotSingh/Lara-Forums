@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title','Notifications')
+
 @section('content')
     <h5>
         <div class="card-header bg-dark text-white text-center">

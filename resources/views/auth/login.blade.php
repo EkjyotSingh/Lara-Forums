@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title','Login Page')
 @section('content')
 <div class="col col-sm-7 col-lg-6">
     <div class="card">

@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title',isset($discussion)?'Update Discussion':'Create Discussion')
+
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{asset('css/trix.css')}}">
 @endsection

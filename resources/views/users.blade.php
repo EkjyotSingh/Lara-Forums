@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Users')
 @section('content')
 <h3 class="mb-5">
     Registered Users

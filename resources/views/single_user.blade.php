@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title',$user['name'])
 @section('content')
 
 <a href="{{route('user.index')}}" class="btn btn-danger mb-5 d-inline-flex align-items-center justify-content-center">

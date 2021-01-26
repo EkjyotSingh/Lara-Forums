@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title',isset($channel)?'Edit Channel':'Add Channel')
 @section('content')
 <div class="card">
     <h5>

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Channels')
 @section('content')
 <div class="card">
     <h5>
